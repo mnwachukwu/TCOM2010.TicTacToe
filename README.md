@@ -1,6 +1,6 @@
 # TCOM2010.TicTacToe
 
-Author: Matt Nwachukwu © 2024\
+Author: Matt Nwachukwu\
 Assignment: Instructions and Usability Test\
 Class: TCOM 2010 - Technical Writing, Section: W3, Semester: Fall 2024\
 Instructor: Professor Shirke\
