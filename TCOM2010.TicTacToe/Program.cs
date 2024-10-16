@@ -42,7 +42,7 @@ namespace TCOM2010.TicTacToe
         internal void Start()
         {
             // Game set up
-            Console.WriteLine("Welcome to Tic-Tac-Toe. Good luck!");
+            Console.WriteLine("Welcome to Tic-Tac-Toe for TCOM 2010. Good luck!");
             Console.WriteLine();
 
             Console.Write("Enter a name for Player 1: ");
@@ -92,9 +92,9 @@ namespace TCOM2010.TicTacToe
             GameBoard = new char[3, 3];
             turn = 0;
 
-            for (int x = 0; x < GameBoard.GetLength(0); x++)
+            for (var x = 0; x < GameBoard.GetLength(0); x++)
             {
-                for (int y = 0; y < GameBoard.GetLength(1); y++)
+                for (var y = 0; y < GameBoard.GetLength(1); y++)
                 {
                     GameBoard[x, y] = ' ';
                 }
@@ -155,7 +155,7 @@ namespace TCOM2010.TicTacToe
         {
             PrintGameBoard();
             var moveIsValid = false;
-            char marker = turn == 0 ? 'X' : 'O';
+            var marker = turn == 0 ? 'X' : 'O';
 
             while (!moveIsValid)
             {
@@ -172,10 +172,8 @@ namespace TCOM2010.TicTacToe
                 var splitInput = coord.Split(",");
                 var xInput = splitInput[0];
                 var yInput = splitInput[1];
-                int x;
-                int y;
 
-                if (!int.TryParse(xInput, out x) || !int.TryParse(yInput, out y))
+                if (!int.TryParse(xInput, out var x) || !int.TryParse(yInput, out var y))
                 {
                     Console.WriteLine("Your input seems to be formatted incorrectly. Enter a coordinate pair in the form x,y (where x and y are numbers).");
                     continue;
@@ -227,20 +225,20 @@ namespace TCOM2010.TicTacToe
         {
             var currentPlayer = players[turn];
             var otherPlayer = players[turn == 0 ? 1 : 0];
-            var marker = turn == 0 ? "X" : "0";
+            var marker = turn == 0 ? 'X' : 'O';
 
-            // Check rows
+            // Check columns
             for (var x = 0; x < GameBoard.GetLength(0); x++)
             {
-                var firstChar = GameBoard[x, 0];
+                var first = GameBoard[x, 0];
 
-                if (firstChar != ' ')
+                if (first != ' ')
                 {
                     var allSame = true;
 
                     for (var y = 1; y < GameBoard.GetLength(1); y++)
                     {
-                        if (GameBoard[x, y] != firstChar)
+                        if (GameBoard[x, y] != first)
                         {
                             allSame = false;
                             break;
@@ -259,18 +257,18 @@ namespace TCOM2010.TicTacToe
                 }
             }
 
-            // Check columns
+            // Check rows
             for (var y = 0; y < GameBoard.GetLength(1); y++)
             {
-                var firstChar = GameBoard[0, y];
+                var first = GameBoard[0, y];
 
-                if (firstChar != ' ')
+                if (first != ' ')
                 {
                     var allSame = true;
 
                     for (var x = 1; x < GameBoard.GetLength(0); x++)
                     {
-                        if (GameBoard[x, y] != firstChar)
+                        if (GameBoard[x, y] != first)
                         {
                             allSame = false;
                             break;
@@ -292,15 +290,15 @@ namespace TCOM2010.TicTacToe
             // Check diagonals (if applicable)
             if (GameBoard.GetLength(0) == GameBoard.GetLength(1))
             {
-                var firstChar = GameBoard[0, 0];
+                var first = GameBoard[0, 0];
 
-                if (firstChar != ' ')
+                if (first != ' ')
                 {
                     var allSame = true;
 
                     for (var i = 1; i < GameBoard.GetLength(0); i++)
                     {
-                        if (GameBoard[i, i] != firstChar)
+                        if (GameBoard[i, i] != first)
                         {
                             allSame = false;
                             break;
@@ -318,16 +316,16 @@ namespace TCOM2010.TicTacToe
                     }
                 }
 
-                // Check the other direction, now
-                firstChar = GameBoard[0, GameBoard.GetLength(1) - 1];
+                // Now, check the anti-diagonal, now
+                first = GameBoard[0, GameBoard.GetLength(1) - 1];
 
-                if (firstChar != ' ')
+                if (first != ' ')
                 {
                     var allSame = true;
 
                     for (var i = 1; i < GameBoard.GetLength(0); i++)
                     {
-                        if (GameBoard[i, GameBoard.GetLength(1) - 1 - i] != firstChar)
+                        if (GameBoard[i, GameBoard.GetLength(1) - 1 - i] != first)
                         {
                             allSame = false;
                             break;
@@ -346,12 +344,12 @@ namespace TCOM2010.TicTacToe
                 }
             }
 
+            // Now check for draws (no winners, but full board)
             var allFilled = true;
 
-            // Now check for draws (no winners, but full board)
-            foreach (var x in GameBoard)
+            foreach (var square in GameBoard)
             {
-                if (x == ' ')
+                if (square == ' ')
                 {
                     allFilled = false;
                 }
